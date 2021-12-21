@@ -129,13 +129,9 @@ public class PetProvider extends ContentProvider {
 
         int rowsUpdated = database.update(PetContract.PetEntry.TABLE_NAME, values, selection, selectionArgs);
 
-        // If 1 or more rows were updated, then notify all listeners that the data at the
-        // given URI has changed
         if (rowsUpdated != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
-
-        // Return the number of rows updated
         return rowsUpdated;
 
 
@@ -154,7 +150,6 @@ public class PetProvider extends ContentProvider {
                 rowsDeleted = database.delete(PetContract.PetEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case PET_ID:
-                // Delete a single row given by the ID in the URI
                 selection = PetContract.PetEntry._ID + "=?";
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
                 rowsDeleted = database.delete(PetContract.PetEntry.TABLE_NAME, selection, selectionArgs);
@@ -165,8 +160,6 @@ public class PetProvider extends ContentProvider {
         if (rowsDeleted != 0) {
             getContext().getContentResolver().notifyChange(uri, null);
         }
-
-        // Return the number of rows deleted
         return rowsDeleted;
     }
 
